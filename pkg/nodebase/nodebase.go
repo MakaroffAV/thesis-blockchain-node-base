@@ -32,7 +32,7 @@ func GetBaseNodes() ([]byte, error) {
 
 // UpdateBaseNodes is public function for
 // updating set of available nodes in blockchain
-func UpdateBaseNodes(newOpenBaseNodes *map[string]bool) {
+func UpdateBaseNodes(openBaseNodeIps *[]string) {
 
 	// make updating
 	// operation thread safe
@@ -41,7 +41,9 @@ func UpdateBaseNodes(newOpenBaseNodes *map[string]bool) {
 
 	// updating set of
 	// open nodes in blockchain network
-	baseNodes = *newOpenBaseNodes
+	for _, ip := range *openBaseNodeIps {
+		baseNodes[ip] = true
+	}
 
 }
 

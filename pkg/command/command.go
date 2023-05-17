@@ -15,8 +15,7 @@ func hNodeIps(message []byte) {
 
 	var (
 		buff bytes.Buffer
-
-		j = map[string]bool{}
+		j    = []string{}
 	)
 
 	buff.Write(message[20:])
@@ -24,7 +23,7 @@ func hNodeIps(message []byte) {
 	decoder := gob.NewDecoder(&buff)
 	err := decoder.Decode(&j)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("error", err)
 	}
 
 	fmt.Println(j)
@@ -38,7 +37,7 @@ func parseCommand(message []byte) string {
 
 	var comm []byte
 
-	for _, b := range message {
+	for _, b := range message[:20] {
 		if b != 0x0 {
 			comm = append(comm, b)
 		}
@@ -51,6 +50,8 @@ func parseCommand(message []byte) string {
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
 
 func Process(msg []byte) {
+
+	fmt.Println(parseCommand(msg))
 
 	switch parseCommand(msg) {
 	case "nodeIps":

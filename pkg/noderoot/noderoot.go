@@ -15,7 +15,7 @@ const (
 
 	// urlNodeRoot is url for
 	// connecting to root blockchain node and tracking open blockchain nodes
-	urlNodeRoot = "ws://thesis-logistics.ru:2605"
+	urlNodeRoot = "ws://thesis-logistics.ru:2605/track"
 )
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
@@ -28,7 +28,7 @@ func OpenNodesTracker() {
 	// node via web sockets connection
 	conn, _, err := websocket.DefaultDialer.Dial(urlNodeRoot, nil)
 	if err != nil {
-		fmt.Println("failed to connect to root node")
+		fmt.Println("failed to connect to root node", err)
 		return
 	}
 
